@@ -15,3 +15,4 @@ for (let i = 0, container = document.getElementById("generated-array"); i < gene
      const new_card = `<div>${data}</div>`;
      container.insertAdjacentHTML("beforeend", new_card);
 }
+
