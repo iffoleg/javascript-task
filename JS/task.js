@@ -1,30 +1,34 @@
 let characters = 'abcdefghijklmnopqrstuvwxyz';
 let charactersLength = characters.length;
-function generateArray(length) {
-     let result = [];
 
+function generateArray(length) {
+
+     let result = [];
      for (let i = 0; i < length; i++) {
           result.push(characters.charAt(Math.floor(Math.random() *
                charactersLength)));
      }
-     return result.join('');
+     return result;
 }
+
 
 let generatedArray = generateArray(5);
 let uniqueArray = [...new Set(generatedArray)];
 
-if (uniqueArray.length == 5) {
+if (generatedArray.length === 5) {
+     let uniqueArray = [...new Set(generatedArray)];
      console.log(uniqueArray);
-
 }
-
-else if (uniqueArray.length != 5) {
-     do {
-          uniqueArray.push(characters.charAt(Math.floor(Math.random() * (charactersLength))))
-     } while (uniqueArray.length == 5)
+else {
+     let generatedArray = generateArray(5);
+     console.log(generatedArray);
 
 }
 
 
 
-// let resultToHtml = document.getElementById("generated-array").innerHTML;
+for (let i = 0, container = document.getElementById("generated-array"); i < uniqueArray.length; i++) {
+     const data = uniqueArray[i];
+     const new_card = `<div>${data}</div>`;
+     container.insertAdjacentHTML("beforeend", new_card);
+}
