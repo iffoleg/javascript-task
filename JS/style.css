@@ -1,0 +1,7 @@
+.displayed-array{
+     display: flex;
+     justify-content: space-between;
+     width: 500px;
+     font-size: 40px;
+     font-weight: bold;
+ }
