@@ -3,8 +3,13 @@ request.open("GET", "list.json", false);
 request.send(null);
 const jsonData = JSON.parse(request.responseText);
 
-let generateArray = (length = 5) => {  //Function which generates array of random unique letter
-     return [...'abcdefghijklmnopqrstuvwxyz'].sort(() => Math.random() - 0.5).splice(0, length);
+let generateArray = (length = 5) => {
+     const uniqueSet = new Set();
+     while (uniqueSet.size < length) {
+          const candidate = 97 + Math.floor(Math.random() * 26);
+          uniqueSet.add(candidate);
+     }
+     return [...uniqueSet].map((x) => String.fromCharCode(x));
 }
 
 let generatedArray = generateArray();
@@ -28,3 +33,7 @@ let click = () => {
 
 click();
 
+
+// let generateArray = (length = 5) => {  //Function which generates array of random unique letter
+//      return [...'abcdefghijklmnopqrstuvwxyz'].sort(() => Math.random() - 0.5).splice(0, length);
+// }
