@@ -1,13 +1,10 @@
-function getFile(fileName) {
+function getFile(fileName) {  //Parsing JSON
      let req = new XMLHttpRequest();
      req.open('GET', fileName, false);
      req.send(null);
      return JSON.parse(req.responseText);
 }
-let jsonData = getFile('list.json');
-
-console.log(jsonData);
-
+const jsonData = getFile('list.json');
 
 function generateArray(length = 5) { //Generate array of 5 random unique letters
      const uniqueSet = new Set();
@@ -19,13 +16,13 @@ function generateArray(length = 5) { //Generate array of 5 random unique letters
 }
 
 let generatedArray = generateArray();
+generatedArray = generatedArray.map(function (x) { return x.toUpperCase(); }); //Uppercase Generated array
 
 for (let i = 0, container = document.getElementById("generated-array"); i < generatedArray.length; i++) { //Divides array to separate divs
      const data = generatedArray[i];
      const displayedDiv = `<div class="specific-letter" onclick="click()">${data}</div>`;
      container.insertAdjacentHTML("beforeend", displayedDiv);
 }
-
 
 function click() {
      let letters = document.getElementsByClassName("specific-letter");
@@ -35,11 +32,21 @@ function click() {
 }
 
 function clickDiv() { //On click setting letter to variable
-     let clickedDiv = this.innerHTML
-     let result = document.getElementById("names");
-     let ss = ['aa', 'bb'];
-     const startsWith = ss.filter((name) => name.startsWith(clickedDiv));  // Finds a word in array which starts on clicked letter
-     result.innerHTML = startsWith;
+     let clickedDiv = this.innerHTML;
+     let result = document.getElementById("arr");
+
+     const startsWith = jsonData.filter(function (option) { // Finds a word in array which starts on clicked letter
+          return option.name.startsWith(clickedDiv)
+     });
+
+     if (startsWith.length) {
+          let myLetter = startsWith[0].name;
+          result.innerHTML = myLetter;
+     }
+     else {
+          result.innerHTML = "No matches found"
+     }
 }
+
 click();
 
