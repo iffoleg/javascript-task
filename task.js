@@ -20,7 +20,9 @@ generatedArray = generatedArray.map(function (x) { return x.toUpperCase(); }); /
 
 for (let i = 0, container = document.getElementById("generated-array"); i < generatedArray.length; i++) { //Divides array to separate divs
      const data = generatedArray[i];
-     const displayedDiv = `<div class="specific-letter" onclick="click()">${data}</div>`;
+     const displayedDiv =
+          `<option value="" selected disabled hidden>Choose here</option>
+     <option class="specific-letter" onclick="click()">${data}</option>`;
      container.insertAdjacentHTML("beforeend", displayedDiv);
 }
 
