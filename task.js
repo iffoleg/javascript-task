@@ -3,11 +3,11 @@ async function getFile() {  //Parsing JSON
      const res = await fetch('list.json');
      const data = await res.json();
      return data;
-};
+}
 
-getFile().then((res) => {
+getFile().then(function (res) {
      jsonData = res;
-}).catch(err => {
+}).catch(function (err) {
      console.log(err, 'err');
 });
 
@@ -27,32 +27,21 @@ for (let i = 0, container = document.getElementById("generated-array"); i < gene
      const data = generatedArray[i];
      const displayedDiv =
           `<option value="" selected disabled hidden>Choose here</option>
-     <option class="specific-letter" onclick="click()">${data}</option>`;
+     <option value=${data}>${data}</option>`;
      container.insertAdjacentHTML("beforeend", displayedDiv);
 }
 
-function click() {
-     let letters = document.getElementsByClassName("specific-letter");
-     for (let i = 0; i < letters.length; i++) {
-          letters[i].addEventListener("click", clickDiv, false);
-     }
-}
+let select = document.getElementById("generated-array")
+select.addEventListener('change', clickDiv);
 
-function clickDiv() { //On click setting letter to variable
-     let clickedDiv = this.innerHTML;
+function clickDiv(event) { //On click setting letter to variable
+     const lettter = event.target.value;
+
      let result = document.getElementById("arr");
 
-     const startsWith = jsonData.filter(function (option) { // Finds a word in array which starts on clicked letter
-          return option.name.startsWith(clickedDiv)
+     const startsWith = jsonData.find(function (option) {
+          return option.name[0] == lettter;
      });
-
-     if (startsWith.length) {
-          let myLetter = startsWith[0].name;
-          result.innerHTML = myLetter;
-     }
-     else {
-          result.innerHTML = "No matches found"
-     }
+     const text = startsWith ? result.innerHTML = startsWith.name : "No matches found";
+     result.innerHTML = text;
 }
-
-click();
