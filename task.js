@@ -1,10 +1,15 @@
-function getFile(fileName) {  //Parsing JSON
-     let req = new XMLHttpRequest();
-     req.open('GET', fileName, false);
-     req.send(null);
-     return JSON.parse(req.responseText);
-}
-const jsonData = getFile('list.json');
+let jsonData;
+async function getFile() {  //Parsing JSON
+     const res = await fetch('list.json');
+     const data = await res.json();
+     return data;
+};
+
+getFile().then((res) => {
+     jsonData = res;
+}).catch(err => {
+     console.log(err, 'err');
+});
 
 function generateArray(length = 5) { //Generate array of 5 random unique letters
      const uniqueSet = new Set();
@@ -51,4 +56,3 @@ function clickDiv() { //On click setting letter to variable
 }
 
 click();
-
